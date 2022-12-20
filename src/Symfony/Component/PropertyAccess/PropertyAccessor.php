@@ -328,6 +328,10 @@ class PropertyAccessor implements PropertyAccessorInterface
                 $zval[self::VALUE] = null;
             } else {
                 $zval = $this->readProperty($zval, $property, $this->ignoreInvalidProperty, $isNullSafe);
+                if ($isNullSafe && null === $zval[self::VALUE]) {
+                    $propertyValues[] = $zval;
+                    return $propertyValues;
+                }
             }
 
             // the final value of the path must not be validated
